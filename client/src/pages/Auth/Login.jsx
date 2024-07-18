@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "../../styles/AuthStyles.css";
+import { useAuth } from "../../context/auth";
+import { set } from "mongoose";
+
 
 const Login = () => {
 
@@ -11,15 +14,24 @@ const Login = () => {
         password: ''
     });
 
+    const [auth, setAuth] = useAuth();
+
     const naviage = useNavigate();
+    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, data);
             if (res.data.success) {
+                setAuth({
+                    ...auth,
+                    user: res.data.user,
+                    token: res.data.userToken
+                })
+                localStorage.setItem('auth', JSON.stringify(res.data));
                 toast.success(res.data.message);
-                naviage('/');
+                naviage(location.state || '/');
             }
             else {
                 toast.error();
@@ -33,7 +45,7 @@ const Login = () => {
     return (
         <div className="form-container">
             <form onSubmit={handleSubmit}>
-                <h4 className="title">Register</h4>
+                <h4 className="title">Login</h4>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email</label>
                     <input type="email"
