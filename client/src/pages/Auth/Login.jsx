@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, data);
-            if (res.data.success) {
+            if (res && res.data.success) {
                 setAuth({
                     ...auth,
                     user: res.data.user,
