@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import connectDb from './config/db.js';
 import authRoute from './routes/authRoute.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 import cors from 'cors';
 
 const app = express();
@@ -21,7 +22,8 @@ app.get("/", (req, res) => {
     res.send("<h1>Hello World</h1>")
 })
 
-app.use('/api/v1/auth/', authRoute);
+app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/category', categoryRoutes);
 
 
 const PORT = process.env.PORT || 5000;
