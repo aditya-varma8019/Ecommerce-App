@@ -10,7 +10,8 @@ const Register = () => {
         email: '',
         password: '',
         phone: '',
-        address: ''
+        address: '',
+        question: ''
     })
 
     const naviage = useNavigate();
@@ -79,6 +80,15 @@ const Register = () => {
                         id="address"
                         value={data.address}
                         onChange={e => setData({ ...data, address: e.target.value })}
+                        required />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="question" className="form-label">What is your first pet's name?</label>
+                    <input type="text"
+                        className="form-control"
+                        id="question"
+                        value={data.question}
+                        onChange={e => setData({ ...data, question: e.target.value })}
                         required />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>

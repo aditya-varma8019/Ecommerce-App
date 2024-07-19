@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "../../styles/AuthStyles.css";
 import { useAuth } from "../../context/auth";
-import { set } from "mongoose";
 
 
 const Login = () => {
@@ -16,7 +15,7 @@ const Login = () => {
 
     const [auth, setAuth] = useAuth();
 
-    const naviage = useNavigate();
+    const navigate = useNavigate();
     const location = useLocation();
 
     const handleSubmit = async (e) => {
@@ -31,7 +30,7 @@ const Login = () => {
                 })
                 localStorage.setItem('auth', JSON.stringify(res.data));
                 toast.success(res.data.message);
-                naviage(location.state || '/');
+                navigate(location.state || '/');
             }
             else {
                 toast.error();
@@ -63,6 +62,9 @@ const Login = () => {
                         value={data.password}
                         onChange={e => setData({ ...data, password: e.target.value })}
                         required />
+                </div>
+                <div className="mb-3">
+                    <button type="button" className="btn btn-primary" onClick={() => navigate('/forgot-password')}>Forgot Password</button>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

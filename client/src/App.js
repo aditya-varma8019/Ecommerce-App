@@ -10,6 +10,7 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import Dashboard from './pages/user/Dashboard';
 import { PrivateRoute } from './components/routes/PrivateRoute';
+import ForgotPassword from './pages/Auth/ForgotPassword';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path='/policy' element={<Policy />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Layout >
