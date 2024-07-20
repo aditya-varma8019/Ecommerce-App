@@ -125,6 +125,7 @@ export const getSingleProductPhotoController = async (req, res) => {
     }
 }
 
+
 export const deleteProductController = async (req, res) => {
     try {
         await productModel.findByIdAndDelete(req.params.pid).select("-photo");
@@ -203,6 +204,77 @@ export const updateProductController = async (req, res) => {
             success: false,
             message: "Error while updating product",
             error
+        })
+    }
+}
+
+export const productFilterController = async (req, res) => {
+    try {
+        const { checked, radio } = req.body;
+
+        let args = {}
+        if (checked.length > 0) {
+            args.category = checked;
+        }
+        if (radio.length) {
+            args.price = { $gte: radio[0], $lte: radio[1] }
+        }
+
+        const products = await productModel.find(args);
+
+        res.status(200).send({
+            success: true,
+            products,
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            success: false,
+            message: "Error while filtering products",
+            error
+        })
+    }
+}
+
+export const getProductCountController = async (req, res) => {
+    try {
+        const totalCount = await productModel.find({}).estimatedDocumentCount();
+
+        res.status(200).send({
+            success: true,
+            message: "Product Count Fetched Successfully",
+            totalCount
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message: "Error occured while getting product count",
+            error,
+            success: false
+        })
+    }
+}
+
+export const productListController = async (req, res) => {
+    try {
+        const perPage = 2;
+        const page = req.params.page ? req.params.page : 1;
+        const products = await productModel.find({}).select("-photo").skip((page - 1) * perPage).limit(perPage).sort({ createdAt: -1 })
+
+        res.status(200).send({
+            success: true,
+            message: "Products Fetched Successfully",
+            products
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({
+            message: "Error occured while getting products",
+            error,
+            success: false
         })
     }
 }

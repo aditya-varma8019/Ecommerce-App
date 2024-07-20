@@ -164,8 +164,8 @@ const UpdateProduct = () => {
                                 size="large"
                                 showSearch
                                 className="form-select mb-3"
-                                onChange={(value) => setNewProduct({ ...newProduct, shipping: value })}
-                                value={newProduct.shipping ? "1" : "0"}
+                                onChange={(value) => setNewProduct({ ...newProduct, shipping: value === '0' ? false : true })}
+                                value={newProduct.shipping ? "yes" : "no"}
                             >
                                 <Option value="0">No</Option>
                                 <Option value="1">Yes</Option>
