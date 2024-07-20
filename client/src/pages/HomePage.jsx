@@ -3,6 +3,7 @@ import axios from "axios";
 import { Checkbox, Radio } from 'antd'
 import { Prices } from "../components/Prices";
 import { set } from "mongoose";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -12,6 +13,8 @@ const HomePage = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
 
     const getAllProducts = async () => {
         try {
@@ -136,7 +139,7 @@ const HomePage = () => {
                                     <h5 className="card-title">{p.name}</h5>
                                     <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
                                     <p className="card-text">${p.price}</p>
-                                    <button className="btn btn-primary mx-1">More Details</button>
+                                    <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                                     <button className="btn btn-warning mx-1">Add To Cart</button>
                                 </div>
                             </div>

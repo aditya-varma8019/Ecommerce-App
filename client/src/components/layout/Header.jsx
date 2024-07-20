@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FaShoppingCart } from "react-icons/fa";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-toastify";
+import SearchInput from "../form/SearchInput";
 
 
 const Header = () => {
@@ -31,6 +32,7 @@ const Header = () => {
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                         <Link to="/" className="navbar-brand"> <FaShoppingCart /> ECOMMERCE APP</Link>
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <SearchInput />
                             <li className="nav-item">
                                 <NavLink to="/" className="nav-link">Home</NavLink>
                             </li>
