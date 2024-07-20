@@ -111,11 +111,7 @@ export const getSingleProductPhotoController = async (req, res) => {
 
         if (productPhoto.photo.data) {
             res.set('Content-type', productPhoto.photo.contentType);
-            return res.status(200).send({
-                success: true,
-                message: "Product photo fetched successfully",
-                data: productPhoto.photo.data
-            });
+            return res.status(200).send(productPhoto.photo.data);
         }
 
 
