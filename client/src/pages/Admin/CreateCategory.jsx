@@ -19,8 +19,6 @@ const CreateCategory = () => {
 
             if (res?.data?.success) {
                 setCategories(res.data.categories);
-                if (newCategory !== "")
-                    toast.success(`${newCategory} added successfully`);
             }
             else {
                 toast.error(res.data.message);
@@ -36,7 +34,8 @@ const CreateCategory = () => {
         try {
             const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/category/create-category`, { name: newCategory });
             if (res.data.success) {
-                // toast.success(`${newCategory} added successfully`);
+                if (newCategory !== "")
+                    toast.success(`${newCategory} added successfully`);
                 getAllCategories();
                 setNewCategory('');
             } else {
