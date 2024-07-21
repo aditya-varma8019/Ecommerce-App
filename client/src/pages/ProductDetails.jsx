@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const ProductDetails = () => {
 
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
+    // const [imgSrc, setImgSrc] = useState("");
     const params = useParams();
+    const navigate = useNavigate();
 
     const getProduct = async () => {
         try {
             const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`);
             setProduct(data?.product);
+            // setImgSrc(`${process.env.REACT_APP_API}/api/v1/product/product-photo/${product?._id}`)
             getSimilarProducts(data?.product._id, data?.product.category._id);
         }
         catch (error) {
@@ -34,7 +37,7 @@ const ProductDetails = () => {
             // getSimilarProducts();
         }
 
-    }, [params?.slug]);
+    }, [params]);
 
     return (
         <div>
@@ -65,6 +68,7 @@ const ProductDetails = () => {
                                 <h5 className="card-title">{p.name}</h5>
                                 <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
                                 <p className="card-text">${p.price}</p>
+                                <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                                 <button className="btn btn-warning mx-1">Add To Cart</button>
                             </div>
                         </div>
