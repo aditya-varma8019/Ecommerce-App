@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Checkbox, Radio } from 'antd'
 import { Prices } from "../components/Prices";
-import { set } from "mongoose";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import { toast } from "react-toastify";
+
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -13,6 +15,7 @@ const HomePage = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [cart, setCart] = useCart();
 
     const navigate = useNavigate();
 
@@ -140,7 +143,13 @@ const HomePage = () => {
                                     <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
                                     <p className="card-text">${p.price}</p>
                                     <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                                    <button className="btn btn-warning mx-1">Add To Cart</button>
+                                    <button className="btn btn-warning mx-1"
+                                        onClick={() => {
+                                            setCart([...cart, p]);
+                                            localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                                            toast.success("Item Added to Cart");
+                                        }}>
+                                        Add To Cart</button>
                                 </div>
                             </div>
 
@@ -149,7 +158,7 @@ const HomePage = () => {
                     </div>
                     <div className="m-2 p-3">
                         {products && products.length < totalCount && (
-                            <button className="btn btn-warning" onClick={(e) => {
+                            <button className="btn btn-secondary" onClick={(e) => {
                                 e.preventDefault();
                                 setPage(page + 1);
                             }}>

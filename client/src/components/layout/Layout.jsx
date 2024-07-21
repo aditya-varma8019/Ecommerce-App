@@ -18,7 +18,7 @@ const Layout = ({ children, title, description, keywords, author }) => {
                 </Helmet>
                 <Header />
                 <main>
-                    <ToastContainer />
+                    <ToastContainer position="top-center" autoClose={1500} />
                     {children}
                 </main>
             </div>
