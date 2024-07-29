@@ -92,7 +92,7 @@ const CartPage = () => {
                 </div>
                 <div className="row">
                     <div className="col-md-8">
-                        <div className="row">
+                        < >
                             {cart?.map((p) => (
                                 <div className="row mb-2 p-3 card flex-row">
                                     <div className="col-md-4">
@@ -112,7 +112,7 @@ const CartPage = () => {
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                        </>
                     </div>
                     <div className="col-md-4 text-center">
                         <h2>Cart Summary</h2>
