@@ -5,7 +5,7 @@ import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
-import "../styles/HomePage.css";
+// import "../styles/HomePage.css";
 
 
 const HomePage = () => {
