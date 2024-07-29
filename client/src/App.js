@@ -25,6 +25,7 @@ import ProductDetails from './pages/ProductDetails';
 import Categories from './pages/Categories';
 import SingleCategory from './pages/SingleCategory';
 import CartPage from './pages/CartPage';
+import AdminOrders from './pages/Admin/AdminOrders';
 
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
             <Route path='admin/create-product' element={<CreateProduct />} />
             {/* <Route path='admin/update-product/:slug' element={<CreateProduct />} /> */}
             <Route path="admin/product/:slug" element={<UpdateProduct />} />
-
+            <Route path='admin/orders' element={<AdminOrders />} />
           </Route>
           <Route path='/contact' element={<Contact />} />
           <Route path='/policy' element={<Policy />} />

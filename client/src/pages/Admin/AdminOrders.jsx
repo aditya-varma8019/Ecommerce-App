@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import UserMenu from "../../components/layout/UserMenu";
-import axios from "axios";
+import AdminMenu from "../../components/layout/AdminMenu"
+import toast from 'react-toastify'
 import { useAuth } from "../../context/auth";
-import moment from "moment"
+import axios from "axios";
+import moment from "moment";
+import { Select } from "antd";
 
-const Orders = () => {
+const { Option } = Select
 
+const AdminOrders = () => {
+
+    const [status, setStatus] = useState(["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"]);
+    const [changeStatus, setChangeStatus] = useState("");
     const [auth] = useAuth();
-    const [orders, setOrders] = useState([]);
+    const [allOrders, setAllOrders] = useState([]);
 
-    const getOrders = async () => {
+    const getAllOrders = async () => {
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/orders`);
-            setOrders(data.orders);
+            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/all-orders`);
+            setAllOrders(data.orders);
         } catch (error) {
             console.log(error);
         }
@@ -21,20 +27,31 @@ const Orders = () => {
     // getOrders();
 
     useEffect(() => {
-        if (auth?.token) getOrders();
+        if (auth?.token) getAllOrders();
 
     }, [auth?.token]);
 
+    const handleChange = async (value, id) => {
+        try {
+            const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status/${id}`, { status: value });
+
+            getAllOrders();
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <div className="container-fluid p-3 m-3">
+        <>
             <div className="row">
                 <div className="col-md-3">
-                    <UserMenu />
+                    <AdminMenu />
                 </div>
                 <div className="col-md-9">
-                    <h1 className="text-center">Orders</h1>
+                    <h1 className="text-center">All Orders</h1>
                     {
-                        orders?.map((o, i) => {
+                        allOrders?.map((o, i) => {
                             return (
                                 <div className="border shadow">
                                     <table className="table">
@@ -51,7 +68,13 @@ const Orders = () => {
                                         <tbody>
                                             <tr>
                                                 <th>{i + 1}</th>
-                                                <th>{o?.status}</th>
+                                                <th>
+                                                    <Select onChange={(value) => handleChange(value, o?._id)} defaultValue={o?.status}>
+                                                        {status.map((s, i) => (
+                                                            <Option key={i} value={s}>{s}</Option>
+                                                        ))}
+                                                    </Select>
+                                                </th>
                                                 <th>{o?.buyer?.name}</th>
                                                 <th>{moment(o?.createdAt).fromNow()}</th>
                                                 <th>{o?.products.length}</th>
@@ -88,8 +111,8 @@ const Orders = () => {
                     }
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 
-export default Orders;
+export default AdminOrders;

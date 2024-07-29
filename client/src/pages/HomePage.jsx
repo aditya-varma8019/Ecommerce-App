@@ -5,6 +5,7 @@ import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
+import "../styles/HomePage.css";
 
 
 const HomePage = () => {
@@ -105,7 +106,7 @@ const HomePage = () => {
 
 
     return (
-        <div>
+        <div className="home-page">
             <div className="row mt-3">
                 <div className="col-md-2 ms-3">
                     <h4 className="text-center">Filter By Category</h4>
@@ -139,9 +140,9 @@ const HomePage = () => {
                             <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
                                 <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
                                 <div className="card-body">
-                                    <h5 className="card-title">{p.name}</h5>
-                                    <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
-                                    <p className="card-text">${p.price}</p>
+                                    <h5 className="card-name-price">{p.name}</h5>
+                                    <p className="card-title">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
+                                    <p className="card-price card-title">${p.price}</p>
                                     <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
                                     <button className="btn btn-warning mx-1"
                                         onClick={() => {

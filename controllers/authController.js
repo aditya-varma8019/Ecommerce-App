@@ -243,3 +243,42 @@ export const getOrdersController = async (req, res) => {
         })
     }
 }
+
+export const getAllOrdersController = async (req, res) => {
+    try {
+        const orders = await orderModel.find().populate("products", "-photo").populate("buyer", "name").sort({ createdAt: -1 });
+        res.status(200).send({
+            orders
+        })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error while getting orders",
+            error
+        })
+    }
+}
+
+export const updateOrderStatusController = async (req, res) => {
+    try {
+        const { orderId } = req.params;
+        const { status } = req.body;
+
+        const updatedOrder = await orderModel.findByIdAndUpdate(orderId, { status }, { new: true });
+
+        res.status(200).send({
+            success: true,
+            message: "Order status updated successfully",
+            updatedOrder
+        })
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Error while updating order status",
+            error
+        })
+    }
+}
