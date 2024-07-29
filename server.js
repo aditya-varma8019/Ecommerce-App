@@ -19,13 +19,7 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
-app.use(cors(
-    {
-        origin: ["https://ecommerce-app-frontend-azure.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true
-    }
-))
+app.use(cors())
 app.use(express.json())
 app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, './client/build')))
