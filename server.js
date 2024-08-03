@@ -20,7 +20,8 @@ dotenv.config();
 
 const allowedOrigins = [
     'http://localhost:3000',
-    'https://ecommerce-app-5dgy.onrender.com'
+    'https://ecommerce-app-5dgy.onrender.com',
+    '*'
 ];
 
 app.use(cors({
