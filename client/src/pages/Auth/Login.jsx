@@ -21,7 +21,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${process.env.REACT_APP_API}/api/v1/auth/login`, data);
+            const res = await axios.post(`http://localhost:5000/api/v1/auth/login`, data);
             if (res && res.data.success) {
                 setAuth({
                     ...auth,
