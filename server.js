@@ -21,19 +21,10 @@ dotenv.config();
 const allowedOrigins = [
     'http://localhost:3000',
     'https://ecommerce-app-5dgy.onrender.com',
-    '*'
 ];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        console.log('Origin:', origin); // Debugging line
-        if (!origin) return callback(null, true); // Allow requests with no origin, like mobile apps or curl requests
-        if (allowedOrigins.indexOf(origin) === -1) {
-            const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
+    origin: allowedOrigins,
     optionsSuccessStatus: 200, // Some legacy browsers choke on 204
     credentials: true, // Enable credentials if needed
 }));
