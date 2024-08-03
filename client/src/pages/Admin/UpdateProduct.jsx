@@ -26,7 +26,7 @@ const UpdateProduct = () => {
 
     const getSingleProduct = async () => {
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`);
+            const { data } = await axios.get(`http://localhost:5000/api/v1/product/get-product/${params.slug}`);
             setNewProduct({
                 _id: data.product._id,
                 name: data.product.name,
@@ -52,7 +52,7 @@ const UpdateProduct = () => {
 
     const getAllCategories = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API}/api/v1/category/get-category`);
+            const res = await axios.get(`http://localhost:5000/api/v1/category/get-category`);
 
             if (res?.data?.success) {
                 setCategories(res.data.categories);
@@ -85,7 +85,7 @@ const UpdateProduct = () => {
             productData.append("quantity", newProduct.quantity);
             productData.append("shipping", newProduct.shipping);
             newProduct.photo && productData.append("photo", newProduct.photo);
-            const res = await axios.put(`${process.env.REACT_APP_API}/api/v1/product/update-product/${newProduct._id}`, productData);
+            const res = await axios.put(`http://localhost:5000/api/v1/product/update-product/${newProduct._id}`, productData);
             if (res?.data?.success) {
                 toast.success("Product Updated Successfully");
                 navigate('/dashboard/admin/products');
@@ -104,7 +104,7 @@ const UpdateProduct = () => {
             let ans = window.confirm("Are you sure want to delete this product?");
             if (!ans) return;
 
-            const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/product/delete-product/${newProduct._id}`);
+            const { data } = await axios.delete(`http://localhost:5000/api/v1/product/delete-product/${newProduct._id}`);
             toast.success(data.message);
             navigate('/dashboard/admin/products');
         } catch (error) {
@@ -142,7 +142,7 @@ const UpdateProduct = () => {
                                 </div>
                             ) : (
                                 <div className="text-center">
-                                    <img src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${newProduct._id}`} alt="product_photo" height={'200px'} className="img img-resposive"></img>
+                                    <img src={`http://localhost:5000/api/v1/product/product-photo/${newProduct._id}`} alt="product_photo" height={'200px'} className="img img-resposive"></img>
                                 </div>
                             )}
                         </div>

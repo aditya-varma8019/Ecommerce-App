@@ -17,7 +17,7 @@ const AdminOrders = () => {
 
     const getAllOrders = async () => {
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/all-orders`);
+            const { data } = await axios.get(`http://localhost:5000/api/v1/auth/all-orders`);
             setAllOrders(data.orders);
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ const AdminOrders = () => {
 
     const handleChange = async (value, id) => {
         try {
-            const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/auth/order-status/${id}`, { status: value });
+            const { data } = await axios.put(`http://localhost:5000/api/v1/auth/order-status/${id}`, { status: value });
 
             getAllOrders();
 
@@ -88,7 +88,7 @@ const AdminOrders = () => {
                                             <div className="row mb-2 p-3 card flex-row">
                                                 <div className="col-md-4">
                                                     <img
-                                                        src={`${process.env.REACT_APP_API}/api/v1/product/product-photo/${p._id}`}
+                                                        src={`http://localhost:5000/api/v1/product/product-photo/${p._id}`}
                                                         className="card-img-top"
                                                         alt={p.name}
                                                         width={"100px"}

@@ -10,7 +10,7 @@ export const AdminRoute = ({ children }) => {
 
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get(`${process.env.REACT_APP_API}/api/v1/auth/admin-auth`, {
+            const res = await axios.get(`http://localhost:5000/api/v1/auth/admin-auth`, {
                 // headers:{
                 //     "Authorization": auth?.token
                 // }
