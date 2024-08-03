@@ -25,13 +25,16 @@ const allowedOrigins = [
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (!origin) return callback(null, true);
+        console.log('Origin:', origin); // Debugging line
+        if (!origin) return callback(null, true); // Allow requests with no origin, like mobile apps or curl requests
         if (allowedOrigins.indexOf(origin) === -1) {
             const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
             return callback(new Error(msg), false);
         }
         return callback(null, true);
-    }
+    },
+    optionsSuccessStatus: 200, // Some legacy browsers choke on 204
+    credentials: true, // Enable credentials if needed
 }));
 app.use(express.json());
 app.use(morgan('dev'))
