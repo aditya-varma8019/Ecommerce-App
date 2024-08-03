@@ -46,6 +46,8 @@ app.use(morgan('dev'))
 //     res.sendFile(path.join(__dirname, '/client/build/index.html'))
 // })
 
+app.options('*', cors());
+
 app.use('/api/v1/auth', authRoute);
 app.use('/api/v1/category', categoryRoutes);
 app.use('/api/v1/product', productRoutes);
