@@ -9,7 +9,7 @@ const Products = () => {
 
     const getAllProduts = async () => {
         try {
-            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/get-product`);
+            const { data } = await axios.get(`api/v1/product/get-product`);
             setAllProducts(data.products);
         } catch (error) {
             console.log(error);
@@ -35,7 +35,7 @@ const Products = () => {
                         {allProducts?.map((p) => (
                             <Link to={`/dashboard/admin/product/${p.slug}`} key={p._id} className="product-link" >
                                 <div className="card m-2" style={{ width: '18rem' }}>
-                                    <img src={`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
+                                    <img src={`api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
                                     <div className="card-body">
                                         <h5 className="card-title">{p.name}</h5>
                                         <p className="card-text">{p.description}</p>

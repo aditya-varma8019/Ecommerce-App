@@ -42,6 +42,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ],
-    "proxy": "https://ecommerce-app-5dgy.onrender.com:5000/"
+    "proxy": ""
   }
 }

@@ -19,7 +19,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/auth/register`, data);
+            const res = await axios.post(`api/v1/auth/register`, data);
             if (res.data.success) {
                 toast.success(res.data.message);
                 naviage('/login');
