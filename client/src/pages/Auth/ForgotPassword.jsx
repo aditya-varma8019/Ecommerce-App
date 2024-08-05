@@ -16,7 +16,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/auth/forgot-password`, data);
+            const res = await axios.post(`https://ecommerce-app-5dgy.onrender.com//api/v1/auth/forgot-password`, data);
             if (res.data && res.data.success) {
                 toast.success(res.data.message);
                 navigate('/login');

@@ -12,9 +12,9 @@ const ProductDetails = () => {
 
     const getProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/product/get-product/${params.slug}`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/get-product/${params.slug}`);
             setProduct(data?.product);
-            // setImgSrc(`http://localhost:5000/api/v1/product/product-photo/${product?._id}`)
+            // setImgSrc(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-photo/${product?._id}`)
             getSimilarProducts(data?.product._id, data?.product.category._id);
         }
         catch (error) {
@@ -24,7 +24,7 @@ const ProductDetails = () => {
 
     const getSimilarProducts = async (pid, cid) => {
         try {
-            const { data } = await axios.get(`http://localhost:5000/api/v1/product/similar-products/${pid}/${cid}`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/similar-products/${pid}/${cid}`);
             setRelatedProducts(data?.products);
         }
         catch (error) {
@@ -44,7 +44,7 @@ const ProductDetails = () => {
         <div>
             <div className="row container mt-2">
                 <div className="col-md-6">
-                    <img src={`http://localhost:5000/api/v1/product/product-photo/${product._id}`} className="card-img-top" alt={product.name} height="300" width={"350px"} />
+                    <img src={`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-photo/${product._id}`} className="card-img-top" alt={product.name} height="300" width={"350px"} />
                 </div>
                 <div className="col-md-6">
                     <h1 className="text-center">Product Details</h1>
@@ -64,7 +64,7 @@ const ProductDetails = () => {
                 <div className="d-flex flex-wrap">
                     {relatedProducts?.map((p) => (
                         <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
-                            <img src={`http://localhost:5000/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
+                            <img src={`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
                             <div className="card-body">
                                 <h5 className="card-title">{p.name}</h5>
                                 <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>

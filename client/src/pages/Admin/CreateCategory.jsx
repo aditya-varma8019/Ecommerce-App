@@ -15,7 +15,7 @@ const CreateCategory = () => {
 
     const getAllCategories = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/v1/category/get-category`);
+            const res = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/category/get-category`);
 
             if (res?.data?.success) {
                 setCategories(res.data.categories);
@@ -32,7 +32,7 @@ const CreateCategory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/api/v1/category/create-category`, { name: newCategory });
+            const res = await axios.post(`https://ecommerce-app-5dgy.onrender.com//api/v1/category/create-category`, { name: newCategory });
             if (res.data.success) {
                 if (newCategory !== "")
                     toast.success(`${newCategory} added successfully`);
@@ -63,7 +63,7 @@ const CreateCategory = () => {
     const handleUpdateCategory = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:5000/api/v1/category/update-category/${selectCategory._id}`, { name: updatedCategory });
+            const res = await axios.put(`https://ecommerce-app-5dgy.onrender.com//api/v1/category/update-category/${selectCategory._id}`, { name: updatedCategory });
             if (res.data.success) {
                 toast.success(`${updatedCategory} updated successfully`);
                 setSelectCategory(null);
@@ -84,7 +84,7 @@ const CreateCategory = () => {
     const handleDeleteCategory = async (id) => {
         // e.preventDefault();
         try {
-            const res = await axios.delete(`http://localhost:5000/api/v1/category/delete-category/${id}`);
+            const res = await axios.delete(`https://ecommerce-app-5dgy.onrender.com//api/v1/category/delete-category/${id}`);
             if (res.data.success) {
                 toast.success(`${newCategory} Deleted successfully`);
                 setNewCategory("");
