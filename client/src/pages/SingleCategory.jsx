@@ -23,6 +23,8 @@ const SingleCategory = () => {
 
     useEffect(() => {
         getCategoryAndProducts();
+
+        //eslint-disable-next-line
     }, [params?.slug]);
 
     return (

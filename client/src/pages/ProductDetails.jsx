@@ -38,6 +38,7 @@ const ProductDetails = () => {
             // getSimilarProducts();
         }
 
+        //eslint-disable-next-line
     }, [params]);
 
     return (

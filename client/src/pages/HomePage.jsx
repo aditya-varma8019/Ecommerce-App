@@ -53,6 +53,8 @@ const HomePage = () => {
     useEffect(() => {
         if (page === 1) return;
         loadMore();
+
+        //eslint-disable-next-line
     }, [page])
 
     // load more
@@ -88,10 +90,13 @@ const HomePage = () => {
         if (!checked.length && !radio.length)
             getAllProducts();
 
+        //eslint-disable-next-line
     }, [checked, radio]);
 
     useEffect(() => {
         if (checked.length || radio.length) filterProducts();
+
+        //eslint-disable-next-line
     }, [checked, radio]);
     //get filtered products
     const filterProducts = async () => {

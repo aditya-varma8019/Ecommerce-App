@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminMenu from "../../components/layout/AdminMenu"
-import toast from 'react-toastify'
+// import toast from 'react-toastify'
 import { useAuth } from "../../context/auth";
 import axios from "axios";
 import moment from "moment";
@@ -10,8 +10,8 @@ const { Option } = Select
 
 const AdminOrders = () => {
 
-    const [status, setStatus] = useState(["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"]);
-    const [changeStatus, setChangeStatus] = useState("");
+    const [status] = useState(["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"]);
+    // const [changeStatus, setChangeStatus] = useState("");
     const [auth] = useAuth();
     const [allOrders, setAllOrders] = useState([]);
 
@@ -34,7 +34,9 @@ const AdminOrders = () => {
     const handleChange = async (value, id) => {
         try {
             const { data } = await axios.put(`api/v1/auth/order-status/${id}`, { status: value });
-
+            if (data?.order) {
+                // toast.success("Status updated");
+            };
             getAllOrders();
 
         } catch (error) {

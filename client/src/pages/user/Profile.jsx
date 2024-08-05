@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserMenu from "../../components/layout/UserMenu";
-import { json, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
@@ -13,14 +13,14 @@ const Profile = () => {
         phone: '',
         address: ''
     })
-    const [password, setPassword] = useState('');
+    // const [password, setPassword] = useState('');
     const [auth, setAuth] = useAuth();
 
     useEffect(() => {
         setData({ ...auth?.user })
     }, [auth?.user])
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();

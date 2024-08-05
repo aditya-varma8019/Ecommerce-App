@@ -45,9 +45,9 @@ const CartPage = () => {
     const totalPrice = () => {
         try {
             let total = 0;
-            cart?.map((p) => {
+            cart?.map((p) => (
                 total = total + p.price
-            });
+            ));
 
             return total.toLocaleString("en-US", {
                 style: "currency",
@@ -67,6 +67,9 @@ const CartPage = () => {
                 nonce,
                 cart
             })
+            if (data?.success) {
+
+            }
             setLoading(false);
             localStorage.removeItem("cart");
             setCart([]);
