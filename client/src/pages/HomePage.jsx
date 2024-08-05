@@ -23,7 +23,7 @@ const HomePage = () => {
     const getAllProducts = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-list/${page}`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-list/${page}`);
             setLoading(false);
             setProducts(data.products);
         } catch (error) {
@@ -34,7 +34,7 @@ const HomePage = () => {
 
     const getAllCategories = async () => {
         try {
-            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/category/get-category`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/category/get-category`);
             setCategories(data.categories);
         } catch (error) {
             console.log(error);
@@ -43,7 +43,7 @@ const HomePage = () => {
 
     const getTotalCount = async () => {
         try {
-            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-count`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-count`);
             setTotalCount(data?.totalCount);
         } catch (error) {
             console.log(error);
@@ -59,7 +59,7 @@ const HomePage = () => {
     const loadMore = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-list/${page}`);
+            const { data } = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-list/${page}`);
             setLoading(false);
             setProducts([...products, ...data?.products]);
         } catch (error) {
@@ -96,7 +96,7 @@ const HomePage = () => {
     //get filtered products
     const filterProducts = async () => {
         try {
-            const { data } = await axios.post(`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-filters`, { checked, radio });
+            const { data } = await axios.post(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-filters`, { checked, radio });
             // console.log(data);
             setProducts(data?.products);
         } catch (error) {
@@ -138,7 +138,7 @@ const HomePage = () => {
                     <div className="d-flex flex-wrap">
                         {products?.map((p) => (
                             <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
-                                <img src={`https://ecommerce-app-5dgy.onrender.com//api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
+                                <img src={`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
                                 <div className="card-body">
                                     <h5 className="card-name-price">{p.name}</h5>
                                     <p className="card-title">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>

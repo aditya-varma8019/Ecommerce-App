@@ -10,7 +10,7 @@ export const PrivateRoute = ({ children }) => {
 
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get(`https://ecommerce-app-5dgy.onrender.com//api/v1/auth/user-auth`, {
+            const res = await axios.get(`https://ecommerce-app-5dgy.onrender.com:5000/api/v1/auth/user-auth`, {
                 // headers:{
                 //     "Authorization": auth?.token
                 // }
