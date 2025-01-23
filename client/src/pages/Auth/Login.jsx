@@ -21,7 +21,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`api/v1/auth/login`, data);
+            const res = await axios.post(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/login`, data);
             if (res && res.data.success) {
                 setAuth({
                     ...auth,

@@ -17,7 +17,7 @@ const AdminOrders = () => {
 
     const getAllOrders = async () => {
         try {
-            const { data } = await axios.get(`api/v1/auth/all-orders`);
+            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/all-orders`);
             setAllOrders(data.orders);
         } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ const AdminOrders = () => {
 
     const handleChange = async (value, id) => {
         try {
-            const { data } = await axios.put(`api/v1/auth/order-status/${id}`, { status: value });
+            const { data } = await axios.put(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/order-status/${id}`, { status: value });
             if (data?.order) {
                 // toast.success("Status updated");
             };
@@ -90,7 +90,7 @@ const AdminOrders = () => {
                                             <div className="row mb-2 p-3 card flex-row">
                                                 <div className="col-md-4">
                                                     <img
-                                                        src={`api/v1/product/product-photo/${p._id}`}
+                                                        src={`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-photo/${p._id}`}
                                                         className="card-img-top"
                                                         alt={p.name}
                                                         width={"100px"}

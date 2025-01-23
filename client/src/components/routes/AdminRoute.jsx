@@ -10,7 +10,7 @@ export const AdminRoute = ({ children }) => {
 
     useEffect(() => {
         const authCheck = async () => {
-            const res = await axios.get(`api/v1/auth/admin-auth`, {
+            const res = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/admin-auth`, {
                 // headers:{
                 //     "Authorization": auth?.token
                 // }
