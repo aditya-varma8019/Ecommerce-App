@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/CategoryProductStyles.css";
+import { useWishlist } from "../context/wishlist";
+import SingleProduct from "./SingleProduct";
 const ProductDetails = () => {
 
     const [product, setProduct] = useState({});
@@ -9,6 +11,23 @@ const ProductDetails = () => {
     // const [imgSrc, setImgSrc] = useState("");
     const params = useParams();
     const navigate = useNavigate();
+
+    const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+    const [isInWishlist, setIsInWishlist] = useState(false);
+    // let isInWishlist = wishlist.some((item) => item._id === product._id);
+
+    useEffect(() => {
+        setIsInWishlist(wishlist.includes(product._id));
+        //eslint-disable-next-line
+    }, [wishlist]);
+
+    const handleWishlistClick = () => {
+        if (wishlist.includes(product._id)) {
+            removeFromWishlist(product._id);
+        } else {
+            addToWishlist(product._id);
+        }
+    }
 
     const getProduct = async () => {
         try {
@@ -64,18 +83,7 @@ const ProductDetails = () => {
                 {relatedProducts.length === 0 && <p className="text-center">No Similar Products Found</p>}
                 <div className="d-flex flex-wrap">
                     {relatedProducts?.map((p) => (
-                        <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
-                            <img src={`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
-                            <div className="card-body">
-                                <h5 className="card-title">{p.name}</h5>
-                                <p className="card-text">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
-                                <p className="card-text">${p.price}</p>
-                                <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                                <button className="btn btn-warning mx-1">Add To Cart</button>
-                            </div>
-                        </div>
-
-
+                        <SingleProduct key={p._id} product={p} />
                     ))}
                 </div>
             </div>
