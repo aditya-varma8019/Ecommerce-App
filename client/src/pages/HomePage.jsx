@@ -5,8 +5,11 @@ import { Prices } from "../components/Prices";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
+import { useWishlist } from "../context/wishlist";
 // import "../styles/HomePage.css";
-
+// import { Button } from "@material-tailwind/react"
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import SingleProduct from "./SingleProduct";
 
 const HomePage = () => {
     const [products, setProducts] = useState([]);
@@ -16,9 +19,9 @@ const HomePage = () => {
     const [totalCount, setTotalCount] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [cart, setCart] = useCart();
 
-    const navigate = useNavigate();
+
+
 
     const getAllProducts = async () => {
         try {
@@ -110,6 +113,8 @@ const HomePage = () => {
     };
 
 
+
+
     return (
         <div className="home-page">
             <div className="row mt-3">
@@ -142,24 +147,7 @@ const HomePage = () => {
                     <h1 className="text-center">All Products</h1>
                     <div className="d-flex flex-wrap">
                         {products?.map((p) => (
-                            <div className="card m-2" style={{ width: '18rem' }} key={p._id}>
-                                <img src={`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-photo/${p._id}`} className="card-img-top" alt={p.name} />
-                                <div className="card-body">
-                                    <h5 className="card-name-price">{p.name}</h5>
-                                    <p className="card-title">{p.description.length > 30 ? p.description.substring(0, 30) + '...' : p.description}</p>
-                                    <p className="card-price card-title">${p.price}</p>
-                                    <button className="btn btn-primary mx-1" onClick={() => navigate(`/product/${p.slug}`)}>More Details</button>
-                                    <button className="btn btn-warning mx-1"
-                                        onClick={() => {
-                                            setCart([...cart, p]);
-                                            localStorage.setItem("cart", JSON.stringify([...cart, p]));
-                                            toast.success("Item Added to Cart");
-                                        }}>
-                                        Add To Cart</button>
-                                </div>
-                            </div>
-
-
+                            <SingleProduct key={p._id} product={p} />
                         ))}
                     </div>
                     <div className="m-2 p-3">
@@ -173,8 +161,8 @@ const HomePage = () => {
                         )}
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 };
 

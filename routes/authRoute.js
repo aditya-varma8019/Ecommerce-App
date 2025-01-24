@@ -1,5 +1,5 @@
 import express from 'express';
-import { forgotPasswordController, getAllOrdersController, getOrdersController, loginController, registerController, testController, updateOrderStatusController, updateProfileController } from '../controllers/authController.js';
+import { addItemsToWishlistController, forgotPasswordController, getAllOrdersController, getOrdersController, getWishlistController, loginController, registerController, removeItemFromWishlistController, testController, updateOrderStatusController, updateProfileController } from '../controllers/authController.js';
 import { adminSignIn, requireSignin } from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -34,5 +34,11 @@ router.get('/all-orders', requireSignin, adminSignIn, getAllOrdersController);
 // order status update
 
 router.put('/order-status/:orderId', requireSignin, adminSignIn, updateOrderStatusController);
+
+router.post('/wishlist/add', requireSignin, addItemsToWishlistController);
+
+router.get('/wishlist', requireSignin, getWishlistController);
+
+router.post('/wishlist/remove', requireSignin, removeItemFromWishlistController);
 
 export default router;

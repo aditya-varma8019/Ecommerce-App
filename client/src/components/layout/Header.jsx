@@ -77,6 +77,10 @@ const Header = () => {
                                                 </li>
                                                 <li><hr className="dropdown-divider" /></li>
                                                 <li className="nav-item">
+                                                    <NavLink to='/user/wishlist' className="dropdown-item">My Wishlist</NavLink>
+                                                </li>
+                                                <li><hr className="dropdown-divider" /></li>
+                                                <li className="nav-item">
                                                     <NavLink onClick={handleLogout} to='/login' className="dropdown-item">Logout</NavLink>
                                                 </li>
                                             </ul>
