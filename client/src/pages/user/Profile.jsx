@@ -5,6 +5,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useAuth } from "../../context/auth";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const Profile = () => {
 
     const [data, setData] = useState({
@@ -25,7 +27,7 @@ const Profile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/profile`, data);
+            const res = await axios.put(`${backEndUrl}/api/v1/auth/profile`, data);
             if (res?.data.error) {
                 toast.error(res.data.message);
             }

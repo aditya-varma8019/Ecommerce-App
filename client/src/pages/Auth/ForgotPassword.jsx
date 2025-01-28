@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const ForgotPassword = () => {
 
     const [data, setData] = useState({
@@ -16,7 +18,7 @@ const ForgotPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/forgot-password`, data);
+            const res = await axios.post(`${backEndUrl}/api/v1/auth/forgot-password`, data);
             if (res.data && res.data.success) {
                 toast.success(res.data.message);
                 navigate('/login');

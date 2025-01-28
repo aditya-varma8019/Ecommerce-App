@@ -11,6 +11,8 @@ import { useWishlist } from "../context/wishlist";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import SingleProduct from "./SingleProduct";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const HomePage = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -26,7 +28,7 @@ const HomePage = () => {
     const getAllProducts = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-list/${page}`);
+            const { data } = await axios.get(`${backEndUrl}/api/v1/product/product-list/${page}`);
             setLoading(false);
             setProducts(data.products);
         } catch (error) {
@@ -37,7 +39,7 @@ const HomePage = () => {
 
     const getAllCategories = async () => {
         try {
-            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/category/get-category`);
+            const { data } = await axios.get(`${backEndUrl}/api/v1/category/get-category`);
             setCategories(data.categories);
         } catch (error) {
             console.log(error);
@@ -46,7 +48,7 @@ const HomePage = () => {
 
     const getTotalCount = async () => {
         try {
-            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-count`);
+            const { data } = await axios.get(`${backEndUrl}/api/v1/product/product-count`);
             setTotalCount(data?.totalCount);
         } catch (error) {
             console.log(error);
@@ -64,7 +66,7 @@ const HomePage = () => {
     const loadMore = async () => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-list/${page}`);
+            const { data } = await axios.get(`${backEndUrl}/api/v1/product/product-list/${page}`);
             setLoading(false);
             setProducts([...products, ...data?.products]);
         } catch (error) {
@@ -104,7 +106,7 @@ const HomePage = () => {
     //get filtered products
     const filterProducts = async () => {
         try {
-            const { data } = await axios.post(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-filters`, { checked, radio });
+            const { data } = await axios.post(`${backEndUrl}/api/v1/product/product-filters`, { checked, radio });
             // console.log(data);
             setProducts(data?.products);
         } catch (error) {

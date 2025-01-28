@@ -3,6 +3,8 @@ import { useSearch } from "../../context/search";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const SearchInput = () => {
 
     const [values, setValues] = useSearch();
@@ -12,7 +14,7 @@ const SearchInput = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const { data } = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/search/${values.keyword}`);
+            const { data } = await axios.get(`${backEndUrl}/api/v1/product/search/${values.keyword}`);
             setValues({ ...values, results: data.result });
             naviagte('/search');
         } catch (error) {

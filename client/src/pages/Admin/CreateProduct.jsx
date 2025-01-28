@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const CreateProduct = () => {
 
     const [categories, setCategories] = useState([]);
@@ -25,7 +27,7 @@ const CreateProduct = () => {
 
     const getAllCategories = async () => {
         try {
-            const res = await axios.get(`https://ecommerce-app-server-gks8.onrender.com/api/v1/category/get-category`);
+            const res = await axios.get(`${backEndUrl}/api/v1/category/get-category`);
 
             if (res?.data?.success) {
                 setCategories(res.data.categories);
@@ -58,7 +60,7 @@ const CreateProduct = () => {
             productData.append("quantity", newProduct.quantity);
             productData.append("shipping", newProduct.shipping);
             productData.append("photo", newProduct.photo);
-            const res = await axios.post(`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/create-product`, productData);
+            const res = await axios.post(`${backEndUrl}/api/v1/product/create-product`, productData);
             if (res?.data?.success) {
                 toast.success("Product Created Successfully");
                 navigate('/dashboard/admin/products');

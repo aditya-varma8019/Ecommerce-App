@@ -5,6 +5,8 @@ import { useWishlist } from "../context/wishlist";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const SingleProduct = ({ product }) => {
     const [cart, setCart] = useCart();
     const navigate = useNavigate();
@@ -50,7 +52,7 @@ const SingleProduct = ({ product }) => {
     return (
         <div className="card m-2" style={{ width: "18rem" }}>
             <img
-                src={`https://ecommerce-app-server-gks8.onrender.com/api/v1/product/product-photo/${product._id}`}
+                src={`${backEndUrl}/api/v1/product/product-photo/${product._id}`}
                 className="card-img-top"
                 alt={product.name}
             />

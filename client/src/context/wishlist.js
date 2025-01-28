@@ -2,6 +2,8 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./auth";
 
+const backEndUrl = process.env.NODE_ENV === 'production' ? process.env.REACT_APP_BACKEND : "http://localhost:5000";
+
 const WishlistContext = createContext(); // Fixed typo
 
 export const WishlistProvider = ({ children }) => {
@@ -11,7 +13,7 @@ export const WishlistProvider = ({ children }) => {
     const fetchWishlist = async () => {
         if (!auth?.token) return; // Check if token exists
         try {
-            const { data } = await axios.get("https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/wishlist", {
+            const { data } = await axios.get(`${backEndUrl}/api/v1/auth/wishlist`, {
                 headers: {
                     Authorization: `Bearer ${auth?.token}` // Add "Bearer" prefix
                 }
@@ -31,7 +33,7 @@ export const WishlistProvider = ({ children }) => {
         try {
             // Optimistically update the UI
             setWishlist((prev) => [...prev, productId]);
-            await axios.post("https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/wishlist/add", { productId }, {
+            await axios.post(`${backEndUrl}/api/v1/auth/wishlist/add`, { productId }, {
                 headers: {
                     Authorization: `Bearer ${auth?.token}`
                 }
@@ -49,7 +51,7 @@ export const WishlistProvider = ({ children }) => {
         try {
             // Optimistically update the UI
             setWishlist((prev) => prev.filter((id) => id !== productId));
-            await axios.post("https://ecommerce-app-server-gks8.onrender.com/api/v1/auth/wishlist/remove", { productId }, {
+            await axios.post(`${backEndUrl}/api/v1/auth/wishlist/remove`, { productId }, {
                 headers: {
                     Authorization: `Bearer ${auth?.token}`
                 }
