@@ -15,7 +15,7 @@ export const WishlistProvider = ({ children }) => {
         try {
             const { data } = await axios.get(`${backEndUrl}/api/v1/auth/wishlist`, {
                 headers: {
-                    Authorization: `Bearer ${auth?.token}` // Add "Bearer" prefix
+                    Authorization: `${auth?.token}` // Add "Bearer" prefix
                 }
             });
             // console.log(data);
@@ -35,7 +35,7 @@ export const WishlistProvider = ({ children }) => {
             setWishlist((prev) => [...prev, productId]);
             await axios.post(`${backEndUrl}/api/v1/auth/wishlist/add`, { productId }, {
                 headers: {
-                    Authorization: `Bearer ${auth?.token}`
+                    Authorization: `${auth?.token}`
                 }
             });
             // Fetch the updated wishlist
@@ -53,7 +53,7 @@ export const WishlistProvider = ({ children }) => {
             setWishlist((prev) => prev.filter((id) => id !== productId));
             await axios.post(`${backEndUrl}/api/v1/auth/wishlist/remove`, { productId }, {
                 headers: {
-                    Authorization: `Bearer ${auth?.token}`
+                    Authorization: `${auth?.token}`
                 }
             });
             // Fetch the updated wishlist

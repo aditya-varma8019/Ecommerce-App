@@ -11,7 +11,7 @@ export const requireSignin = (req, res, next) => {
         }
 
         // Extract the token from the header
-        const token = authHeader.split(' ')[1]; // "Bearer <token>"
+        const token = authHeader; // "Bearer <token>"
         if (!token) {
             return res.status(401).json({ error: "Authorization token is required" });
         }
