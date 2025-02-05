@@ -29,39 +29,43 @@ export const WishlistProvider = ({ children }) => {
         }
     };
 
-    const addToWishlist = async (productId) => {
+    const addToWishlist = async (product) => {
         try {
             // Optimistically update the UI
-            setWishlist((prev) => [...prev, productId]);
-            await axios.post(`${backEndUrl}/api/v1/auth/wishlist/add`, { productId }, {
+            // setWishlist((prev) => [...prev, productId]);
+            const productId = product._id.toString();
+            const { data } = await axios.post(`${backEndUrl}/api/v1/auth/wishlist/add`, { productId }, {
                 headers: {
                     Authorization: `${auth?.token}`
                 }
             });
             // Fetch the updated wishlist
-            fetchWishlist();
+            // fetchWishlist();
+            setWishlist(data.wishlist);
         } catch (error) {
             console.error("Error while adding to wishlist", error);
             // Revert the UI update if the API call fails
-            setWishlist((prev) => prev.filter((id) => id !== productId));
+            // setWishlist((prev) => prev.filter((id) => id !== productId));
         }
     };
 
-    const removeFromWishlist = async (productId) => {
+    const removeFromWishlist = async (product) => {
+        const productId = product._id.toString();
         try {
             // Optimistically update the UI
-            setWishlist((prev) => prev.filter((id) => id !== productId));
-            await axios.post(`${backEndUrl}/api/v1/auth/wishlist/remove`, { productId }, {
+            // setWishlist((prev) => prev.filter((id) => id !== productId));
+            const { data } = await axios.post(`${backEndUrl}/api/v1/auth/wishlist/remove`, { productId }, {
                 headers: {
                     Authorization: `${auth?.token}`
                 }
             });
             // Fetch the updated wishlist
-            fetchWishlist();
+            // fetchWishlist();
+            setWishlist(data.wishlist);
         } catch (error) {
             console.error("Error while removing from wishlist", error);
             // Revert the UI update if the API call fails
-            setWishlist((prev) => [...prev, productId]);
+            // setWishlist((prev) => [...prev, productId]);
         }
     };
 

@@ -2,7 +2,7 @@ import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
 import { comparePassword, hashPassword } from "../utils/auth.js";
 import JWT from "jsonwebtoken";
-
+import productModel from "../models/productModel.js";
 
 const registerController = async (req, res) => {
     try {
@@ -287,9 +287,10 @@ export const addItemsToWishlistController = async (req, res) => {
     try {
         const { productId } = req.body;
         const user = await userModel.findById(req.user._id);
+        const product = await productModel.findById(productId);
 
-        if (!user.wishlist.includes(productId)) {
-            user.wishlist.push(productId);
+        if (!user.wishlist.includes(product)) {
+            user.wishlist.push(product);
             await user.save();
         }
 
@@ -312,7 +313,7 @@ export const removeItemFromWishlistController = async (req, res) => {
         const { productId } = req.body;
         const user = await userModel.findById(req.user._id);
 
-        user.wishlist = user.wishlist.filter((item) => item.toString() !== productId);
+        user.wishlist = user.wishlist.filter((item) => item._id.toString() !== productId);
         await user.save();
 
         res.status(200).send({

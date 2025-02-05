@@ -14,32 +14,41 @@ const SingleProduct = ({ product }) => {
     const [isWishlistLoading, setIsWishlistLoading] = useState(false);
     const [buttonText, setButtonText] = useState("");
 
-    const isInWishlist = wishlist.some(
+    let isInWishlist = wishlist.some(
         (item) => item?._id?.toString() === product?._id?.toString()
     );
 
-    useEffect(() => {
+    const checkWishlist = () => {
+        isInWishlist = wishlist.some(
+            (item) => item?._id?.toString() === product?._id?.toString()
+        );
         if (isInWishlist) {
             setButtonText("Remove from Wishlist");
         } else {
             setButtonText("Add to Wishlist");
         }
+    }
 
+    useEffect(() => {
+
+        checkWishlist();
         //eslint-disable-next-line
-    }, [])
+    }, [wishlist])
 
     const handleWishlistClick = async () => {
         if (!product) return;
         setIsWishlistLoading(true);
+        isInWishlist = wishlist.some((item) => item?.id?.toString() === product?.id?.toString());
         const productId = product._id.toString();
         try {
             if (isInWishlist) {
-                await removeFromWishlist(productId);
-                setButtonText("Add to Wishlist");
+                await removeFromWishlist(product);
+                // setButtonText("Add to Wishlist");
             } else {
-                await addToWishlist(productId);
-                setButtonText("Remove from Wishlist");
+                await addToWishlist(product);
+                // setButtonText("Remove from Wishlist");
             }
+            checkWishlist();
         } catch (error) {
             console.error("Wishlist update failed:", error);
         } finally {
